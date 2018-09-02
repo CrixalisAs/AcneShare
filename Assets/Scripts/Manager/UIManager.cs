@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : BaseManager {
+public class UIManager : BaseManager
+{
 
     public UIManager(GameFacade facade) : base(facade)
     {
@@ -26,7 +27,7 @@ public class UIManager : BaseManager {
 
     private Transform canvasTransform;
 
-    private Transform CanvasTransform
+    public Transform CanvasTransform
     {
         get
         {
@@ -40,6 +41,7 @@ public class UIManager : BaseManager {
     private Dictionary<UIPanelType, string> panelPathDict = new Dictionary<UIPanelType, string>();//存储所有面板prefab路径
     private Dictionary<UIPanelType, BasePanel> panelDict = new Dictionary<UIPanelType, BasePanel>();//保存所有实例化面板的游戏物体身上的BasePanel组件
     private Stack<BasePanel> panelStack = new Stack<BasePanel>();
+    private MessagePanel msgPanel;
     private UIPanelType panelTypeToPush = UIPanelType.None;
     private UIPanelType currentPanelType = UIPanelType.None;
     public override void OnInit()
@@ -123,13 +125,53 @@ public class UIManager : BaseManager {
             panelPathDict.Add(info.PanelType, info.Path);
         }
     }
-    
+
+    public void InjectMsgPanel(MessagePanel msgPanel)
+    {
+        this.msgPanel = msgPanel;
+    }
+    public void ShowMessage(string msg)
+    {
+        if (msgPanel == null)
+        {
+            Debug.Log("无法显示提示信息，MsgPanel为空");
+            return;
+        }
+        msgPanel.ShowMessageAsync(msg);
+    }
+    public void ShowMessageSync(string msg)
+    {
+        if (msgPanel == null)
+        {
+            Debug.Log("无法显示提示信息，MsgPanel为空");
+            return;
+        }
+        msgPanel.ShowMessageAsync(msg);
+    }
 
     public UIPanelType GetCurrentPanelType()
     {
         return currentPanelType;
     }
 
+    public void PopAndDestroy()
+    {
+        if (panelStack.Count <= 0) return;
+        BasePanel topPanel = panelStack.Pop();
+        UIPanelType uiPanelType = UIPanelType.None;
+        foreach (var v in panelDict)
+        {
+            if (v.Value == topPanel)
+            {
+                uiPanelType = v.Key;
+            }
+        }
+        if(uiPanelType!=UIPanelType.None)
+            DestroyPanel(uiPanelType);
+        if (panelStack.Count <= 0) return;
+        BasePanel topPanel2 = panelStack.Peek();
+        topPanel2.OnResume();
+    }
     public void DestroyPanel(UIPanelType uiPanelType)
     {
         UnityEngine.Object.DestroyImmediate(panelDict[uiPanelType].transform.gameObject);

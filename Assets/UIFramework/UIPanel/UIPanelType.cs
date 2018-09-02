@@ -4,13 +4,10 @@ using UnityEngine;
 
 public enum UIPanelType {
     None,
-	Message,
-    Start,
+    Message,
     Login,
     Register,
-    ServerList,
-    RoomList,
-    Room,
-    LoadGame,
-    Game
+    Share,
+    EditShare,
+    ShareView
 }

@@ -4,41 +4,26 @@
       "PanelTypeString": "Message",
       "Path": "UIPanel/MessagePanel"
     },
-
     {
       "PanelTypeString": "Login",
       "Path": "UIPanel/LoginPanel"
     },
     {
-      "PanelTypeString": "ServerList",
-      "Path": "UIPanel/ServerListPanel"
-    },
-    {
-      "PanelTypeString": "Start",
-      "Path": "UIPanel/StartPanel"
-    },
-
-    {
       "PanelTypeString": "Register",
       "Path": "UIPanel/RegisterPanel"
     },
     {
-      "PanelTypeString": "RoomList",
-      "Path": "UIPanel/RoomListPanel"
+      "PanelTypeString": "Share",
+      "Path": "UIPanel/SharePanel"
     },
     {
-      "PanelTypeString": "Room",
-      "Path": "UIPanel/RoomPanel"
+      "PanelTypeString": "EditShare",
+      "Path": "UIPanel/EditSharePanel"
     },
     {
-      "PanelTypeString": "LoadGame",
-      "Path": "UIPanel/LoadGamePanel"
-    },
-    {
-      "PanelTypeString": "Game",
-      "Path": "UIPanel/GamePanel"
+      "PanelTypeString": "ShareView",
+      "Path": "UIPanel/ShareViewPanel"
     }
-
   ]
 
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Common;
 using UnityEngine;
 
 public class GameFacade : MonoBehaviour
@@ -20,7 +21,9 @@ public class GameFacade : MonoBehaviour
 
 
     private UIManager uiMng;
-    private bool isFirstOpen = false;
+    private RequestManager requestMng;
+    private ClientManager clientMng;
+    private PlayerManager playerManager;
     private void Awake()
     {
         if (_instance == null)
@@ -48,35 +51,85 @@ public class GameFacade : MonoBehaviour
 
     private void Init()
     {
-        Save();
+        clientMng=new ClientManager(this);
         uiMng = new UIManager(this);
+        playerManager=new PlayerManager(this);
+        requestMng=new RequestManager(this);
+        clientMng.OnInit();
         uiMng.OnInit();
+        playerManager.OnInit();
+        requestMng.OnInit();
     }
 
     private void DestroyManager()
     {
+        clientMng.OnDestroy();
         uiMng.OnDestroy();
+        playerManager.OnDestroy();
+        requestMng.OnDestroy();
     }
 
     private void UpdateManager()
     {
+        clientMng.Update();
         uiMng.Update();
+        playerManager.Update();
+        requestMng.Update();
     }
 
-    void Save()
-    {
-        if (PlayerPrefs.HasKey(this.gameObject.name))
-        {
-            return;
-        }
-        else
-        {
-            isFirstOpen = true;
-            PlayerPrefs.SetInt(gameObject.name,1);
-        }
-    }
     void OnDestroy()
     {
         DestroyManager();
+    }
+    #region Request
+
+
+    public void AddRequest(ActionCode actionCode, BaseRequest Request)
+    {
+        requestMng.AddRequest(actionCode, Request);
+    }
+
+    public void RemoveRequest(ActionCode actionCode)
+    {
+        requestMng.RemoveRequest(actionCode);
+    }
+    public void HandleResponse(ActionCode actionCode, string data)
+    {
+        requestMng.HandleResponse(actionCode, data);
+    }
+    public void SendRequest(RequestCode requestCode, ActionCode actionCode, string data)
+    {
+        clientMng.SendRequest(requestCode, actionCode, data);
+    }
+
+    #endregion
+
+    #region UI
+
+
+    public UIPanelType GetCurrentPanelType()
+    {
+        return uiMng.GetCurrentPanelType();
+    }
+
+    public BasePanel GetCurrentPanel()
+    {
+        return uiMng.GetCurrentPanel();
+    }
+    public void ShowMessage(string msg)
+    {
+        uiMng.ShowMessage(msg);
+    }
+
+    #endregion
+
+    public void SetUserData(UserData ud)
+    {
+        playerManager.UserData = ud;
+    }
+
+    public UserData GetUserData()
+    {
+        return playerManager.UserData;
     }
 }
