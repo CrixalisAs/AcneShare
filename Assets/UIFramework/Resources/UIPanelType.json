@@ -23,6 +23,18 @@
     {
       "PanelTypeString": "ShareView",
       "Path": "UIPanel/ShareViewPanel"
+    },
+    {
+      "PanelTypeString": "Info",
+      "Path": "UIPanel/InfoPanel"
+    },
+    {
+      "PanelTypeString": "Calendar",
+      "Path": "UIPanel/CalendarPanel"
+    },
+    {
+      "PanelTypeString": "Task",
+      "Path": "UIPanel/TaskPanel"
     }
   ]
 

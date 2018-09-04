@@ -9,5 +9,8 @@ public enum UIPanelType {
     Register,
     Share,
     EditShare,
-    ShareView
+    ShareView,
+    Info,
+    Calendar,
+    Task
 }

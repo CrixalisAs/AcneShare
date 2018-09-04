@@ -16,6 +16,7 @@ public class SharePanel : BasePanel
         updateShareRequest = GetComponent<UpdateShareRequest>();
         layout = transform.Find("ScrollPanel/Layout");
         transform.Find("ShareButton").GetComponent<Button>().onClick.AddListener(Share);
+        transform.Find("InfoButton").GetComponent<Button>().onClick.AddListener(Info);
         shareItem = Resources.Load<GameObject>("UIItem/ShareItem");
         facade.ShowMessage("");
     }
@@ -30,16 +31,16 @@ public class SharePanel : BasePanel
         uiMng.PushPanel(UIPanelType.EditShare);
     }
 
+    void Info()
+    {
+        uiMng.PushPanel(UIPanelType.Info);
+    }
     public void ListShares(List<UpdateShareRequest.Share> shares)
     {
         Clear();
         foreach (UpdateShareRequest.Share share in shares)
         {
-            Texture2D texture = new Texture2D(400, 400);
-            texture.LoadImage(share.Image);
-            Sprite Image = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
-                new Vector2(0.5f, 0.5f));
-            Instantiate(shareItem, layout).GetComponent<ShareItem>().Set(Image, share.Content, share.Name).SharePanel =
+            Instantiate(shareItem, layout).GetComponent<ShareItem>().Set(GameFacade.TransBytesToSprite(share.Image), share.Content, share.Name).SharePanel =
                 this;
         }
     }

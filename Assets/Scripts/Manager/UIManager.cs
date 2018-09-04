@@ -149,6 +149,10 @@ public class UIManager : BaseManager
         msgPanel.ShowMessageAsync(msg);
     }
 
+    public void SetMessagePos(float y)
+    {
+        msgPanel.transform.localPosition=new Vector3(msgPanel.transform.localPosition.x,y, msgPanel.transform.localPosition.z);
+    }
     public UIPanelType GetCurrentPanelType()
     {
         return currentPanelType;

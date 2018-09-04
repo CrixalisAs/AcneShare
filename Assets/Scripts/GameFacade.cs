@@ -121,6 +121,10 @@ public class GameFacade : MonoBehaviour
         uiMng.ShowMessage(msg);
     }
 
+    public void SetMessagePos(float y)
+    {
+        uiMng.SetMessagePos(y);
+    }
     #endregion
 
     public void SetUserData(UserData ud)
@@ -131,5 +135,13 @@ public class GameFacade : MonoBehaviour
     public UserData GetUserData()
     {
         return playerManager.UserData;
+    }
+
+    public static Sprite TransBytesToSprite(byte[] image)
+    {
+        Texture2D texture = new Texture2D(400, 400);
+        texture.LoadImage(image);
+        return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
+            new Vector2(0.5f, 0.5f));
     }
 }

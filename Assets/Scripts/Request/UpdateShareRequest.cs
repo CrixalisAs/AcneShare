@@ -34,7 +34,7 @@ public class UpdateShareRequest : BaseRequest
 
     void Update()
     {
-        if (isUpdate&& shares.Count!=0)
+        if (isUpdate)
         {
             isUpdate = false;
             sharePanel.ListShares(shares);
@@ -44,22 +44,24 @@ public class UpdateShareRequest : BaseRequest
 
     public override void SendRequest()
     {
-        Debug.Log("Send");
         base.SendRequest("");
     }
 
     public override void OnResponse(string data)
     {
         base.OnResponse(data);
-        string[] strs = data.Split('$');
-        
-        foreach (string str in strs)
+        if (data != "")
         {
-            string[] s = str.Split('&');
-            string name = s[0];
-            byte[] image = Tools.ParseBytes(s[1]);
-            string content = s[2];
-            shares.Add(new Share(name, image, content));
+            string[] strs = data.Split('$');
+
+            foreach (string str in strs)
+            {
+                string[] s = str.Split('&');
+                string name = s[0];
+                byte[] image = Tools.ParseBytes(s[1]);
+                string content = s[2];
+                shares.Add(new Share(name, image, content));
+            }
         }
         isUpdate = true;
     }
