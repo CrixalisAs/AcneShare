@@ -40,7 +40,7 @@ public class InfoPanel : BasePanel
 	    amount = calendar.Find("Amount").GetComponent<Text>();
         calendar.Find("DetailsButton").GetComponent<Button>().onClick.AddListener(Calendar);
         task.Find("DetailsButton").GetComponent<Button>().onClick.AddListener(Task);
-
+        transform.Find("History/DetailsButton").GetComponent<Button>().onClick.AddListener(History);
         taskText = transform.Find("Task/TaskText").GetComponent<Text>();
         fillImage = transform.Find("Task/FillImage").GetComponent<Image>();
         score = fillImage.transform.Find("Score").GetComponent<Text>();
@@ -56,11 +56,16 @@ public class InfoPanel : BasePanel
     {
         uiMng.PushPanel(UIPanelType.Calendar);
     }
+
+    void History()
+    {
+        uiMng.PushPanel(UIPanelType.History);
+    }
     void OnShareButtonClick()
     {
         uiMng.PopAndDestroy();
     }
-
+    
     void Task()
     {
         TaskPanel taskPanel = uiMng.PushPanel(UIPanelType.Task) as TaskPanel;

@@ -25,8 +25,15 @@ public class TaskPanel : BasePanel
     private Text taskText;
     private Text score;
 
+    public Sprite Finished;
+    public Sprite UnFinished;
+    public Sprite UnConfirmed;
+
     void Awake()
     {
+        Finished = Resources.Load<Sprite>("Sprites/Finished");
+        UnFinished = Resources.Load<Sprite>("Sprites/UnFinished");
+        UnConfirmed = Resources.Load<Sprite>("Sprites/UnConfirmed");
         addPanel = transform.Find("AddPanel").gameObject;
         addPanel.SetActive(false);
         confirmPanel = transform.Find("ConfirmPanel").gameObject;

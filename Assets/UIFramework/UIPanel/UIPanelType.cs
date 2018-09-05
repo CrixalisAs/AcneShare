@@ -12,5 +12,6 @@ public enum UIPanelType {
     ShareView,
     Info,
     Calendar,
-    Task
+    Task,
+    History
 }

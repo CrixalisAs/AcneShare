@@ -35,6 +35,10 @@
     {
       "PanelTypeString": "Task",
       "Path": "UIPanel/TaskPanel"
+    },
+    {
+      "PanelTypeString": "History",
+      "Path": "UIPanel/HistoryPanel"
     }
   ]
 

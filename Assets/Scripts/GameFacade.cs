@@ -137,9 +137,9 @@ public class GameFacade : MonoBehaviour
         return playerManager.UserData;
     }
 
-    public static Sprite TransBytesToSprite(byte[] image)
+    public static Sprite TransBytesToSprite(byte[] image,int width=400,int height=400)
     {
-        Texture2D texture = new Texture2D(400, 400);
+        Texture2D texture = new Texture2D(width, height);
         texture.LoadImage(image);
         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
             new Vector2(0.5f, 0.5f));

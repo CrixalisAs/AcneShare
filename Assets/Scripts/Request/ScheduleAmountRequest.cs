@@ -26,14 +26,12 @@ public class ScheduleAmountRequest : BaseRequest
 	    {
 	        infoPanel.SetAmount(amount);
 	        amount = -1;
-            Debug.Log("SetAmount");
 	    }
 	}
 
     public override void OnResponse(string data)
     {
         base.OnResponse(data);
-        Debug.Log(data);
         amount = int.Parse(data);
     }
 }

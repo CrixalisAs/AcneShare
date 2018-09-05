@@ -12,7 +12,7 @@ public class TaskItem : MonoBehaviour
     private int id;
     private Text content;
     private GameObject deleteButton;
-    private Text confirmText;
+    private Image confirmImage;
     private GameObject confirmButton;
 	// Use this for initialization
 	void Awake ()
@@ -23,7 +23,7 @@ public class TaskItem : MonoBehaviour
 
 	    confirmButton = transform.Find("ConfirmButton").gameObject;
 	    confirmButton.GetComponent<Button>().onClick.AddListener(Confirm);
-	    confirmText = confirmButton.GetComponentInChildren<Text>();
+	    confirmImage = confirmButton.GetComponent<Image>();
 	}
 	
 	// Update is called once per frame
@@ -39,14 +39,14 @@ public class TaskItem : MonoBehaviour
         switch (task.TaskState)
         {
             case TaskState.UnConfrimed:
-                confirmText.text = "确认";
+                confirmImage.sprite = taskPanel.UnConfirmed;
                 break;
             case TaskState.Finished:
-                confirmText.text = "完成";
+                confirmImage.sprite = taskPanel.Finished;
                 confirmButton.GetComponent<Button>().interactable = false;
                 break;
             case TaskState.UnFinished:
-                confirmText.text = "未完成";
+                confirmImage.sprite = taskPanel.UnFinished;
                 confirmButton.GetComponent<Button>().interactable = false;
                 break;
             default:
