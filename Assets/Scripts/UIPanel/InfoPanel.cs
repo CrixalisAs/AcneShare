@@ -37,7 +37,8 @@ public class InfoPanel : BasePanel
 	    sex = info.Find("Sex").GetComponent<Text>();
 	    image = info.Find("Image").GetComponent<CircleImage>();
         transform.Find("ShareButton").GetComponent<Button>().onClick.AddListener(OnShareButtonClick);
-	    amount = calendar.Find("Amount").GetComponent<Text>();
+        transform.Find("KnowledgeButton").GetComponent<Button>().onClick.AddListener(Knowledge);
+        amount = calendar.Find("Amount").GetComponent<Text>();
         calendar.Find("DetailsButton").GetComponent<Button>().onClick.AddListener(Calendar);
         task.Find("DetailsButton").GetComponent<Button>().onClick.AddListener(Task);
         transform.Find("History/DetailsButton").GetComponent<Button>().onClick.AddListener(History);
@@ -65,7 +66,12 @@ public class InfoPanel : BasePanel
     {
         uiMng.PopAndDestroy();
     }
-    
+
+    void Knowledge()
+    {
+        uiMng.PopPanel();
+        uiMng.PushPanel(UIPanelType.Knowledge);
+    }
     void Task()
     {
         TaskPanel taskPanel = uiMng.PushPanel(UIPanelType.Task) as TaskPanel;

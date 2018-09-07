@@ -14,7 +14,7 @@ public class ShareViewPanel : BasePanel
 	// Use this for initialization
 	void Awake ()
 	{
-	    content = transform.Find("Content").GetComponent<Text>();
+	    content = transform.Find("ScrollPanel/Layout/Content").GetComponent<Text>();
 	    name = transform.Find("Name").GetComponent<Text>();
 	    image = transform.Find("Image").GetComponent<Image>();
         transform.Find("BackButton").GetComponent<Button>().onClick.AddListener(Back);

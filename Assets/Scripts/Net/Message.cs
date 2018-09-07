@@ -9,7 +9,7 @@ using UnityEngine;
 public class Message
 {
 
-    private byte[] data = new byte[1024*1024];
+    private byte[] data = new byte[1024*1024*100];
     private int startIndex = 0;//我们存取了多少个字节的数据在数组里面
 
     //public void AddCount(int count)
@@ -66,6 +66,14 @@ public class Message
         byte[] requestCodeBytes = BitConverter.GetBytes((int)requestCode);
         byte[] actionCodeBytes = BitConverter.GetBytes((int)actionCode);
         byte[] dataBytes = Encoding.UTF8.GetBytes(data);
+        int dataAmount = requestCodeBytes.Length + dataBytes.Length + actionCodeBytes.Length;
+        byte[] dataAmountBytes = BitConverter.GetBytes(dataAmount);
+        return dataAmountBytes.Concat(requestCodeBytes).Concat(actionCodeBytes).Concat(dataBytes).ToArray();
+    }
+    public static byte[] PackData(RequestCode requestCode, ActionCode actionCode, byte[] dataBytes)
+    {
+        byte[] requestCodeBytes = BitConverter.GetBytes((int)requestCode);
+        byte[] actionCodeBytes = BitConverter.GetBytes((int)actionCode);
         int dataAmount = requestCodeBytes.Length + dataBytes.Length + actionCodeBytes.Length;
         byte[] dataAmountBytes = BitConverter.GetBytes(dataAmount);
         return dataAmountBytes.Concat(requestCodeBytes).Concat(actionCodeBytes).Concat(dataBytes).ToArray();

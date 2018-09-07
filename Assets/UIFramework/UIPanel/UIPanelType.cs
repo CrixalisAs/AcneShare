@@ -13,5 +13,7 @@ public enum UIPanelType {
     Info,
     Calendar,
     Task,
-    History
+    History,
+    Knowledge,
+    Article
 }

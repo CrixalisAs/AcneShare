@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\Manager\RequestManager.cs" />
     <Compile Include="Assets\Scripts\Manager\UIManager.cs" />
     <Compile Include="Assets\Scripts\Model\History.cs" />
+    <Compile Include="Assets\Scripts\Model\Knowledge.cs" />
     <Compile Include="Assets\Scripts\Model\Schedule.cs" />
     <Compile Include="Assets\Scripts\Model\Task.cs" />
     <Compile Include="Assets\Scripts\Model\UserData.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Assets\Scripts\Net\Message.cs" />
     <Compile Include="Assets\Scripts\Request\AddHistoryContentRequest.cs" />
     <Compile Include="Assets\Scripts\Request\AddHistoryPhotoRequest.cs" />
+    <Compile Include="Assets\Scripts\Request\AddKnowledgeRequest.cs" />
     <Compile Include="Assets\Scripts\Request\AddScheduleRequest.cs" />
     <Compile Include="Assets\Scripts\Request\AddTaskRequest.cs" />
     <Compile Include="Assets\Scripts\Request\BaseRequest.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Assets\Scripts\Request\ShareRequest.cs" />
     <Compile Include="Assets\Scripts\Request\TaskInfoRequest.cs" />
     <Compile Include="Assets\Scripts\Request\UpdateHistoryRequest.cs" />
+    <Compile Include="Assets\Scripts\Request\UpdateKnowledgeRequest.cs" />
     <Compile Include="Assets\Scripts\Request\UpdateScheduleRequest.cs" />
     <Compile Include="Assets\Scripts\Request\UpdateShareRequest.cs" />
     <Compile Include="Assets\Scripts\Request\UpdateTaskRequest.cs" />
@@ -103,14 +106,17 @@
     <Compile Include="Assets\Scripts\Tools\OnScrollDrag.cs" />
     <Compile Include="Assets\Scripts\Tools\Tools.cs" />
     <Compile Include="Assets\Scripts\UIItem\HistoryItem.cs" />
+    <Compile Include="Assets\Scripts\UIItem\KnowledgeItem.cs" />
     <Compile Include="Assets\Scripts\UIItem\ScheduleItem.cs" />
     <Compile Include="Assets\Scripts\UIItem\ShareItem.cs" />
     <Compile Include="Assets\Scripts\UIItem\TaskItem.cs" />
+    <Compile Include="Assets\Scripts\UIPanel\ArticlePanel.cs" />
     <Compile Include="Assets\Scripts\UIPanel\BasePanel.cs" />
     <Compile Include="Assets\Scripts\UIPanel\CalendarPanel.cs" />
     <Compile Include="Assets\Scripts\UIPanel\EditSharePanel.cs" />
     <Compile Include="Assets\Scripts\UIPanel\HistoryPanel.cs" />
     <Compile Include="Assets\Scripts\UIPanel\InfoPanel.cs" />
+    <Compile Include="Assets\Scripts\UIPanel\KnowledgePanel.cs" />
     <Compile Include="Assets\Scripts\UIPanel\LoginPanel.cs" />
     <Compile Include="Assets\Scripts\UIPanel\MessagePanel.cs" />
     <Compile Include="Assets\Scripts\UIPanel\RegisterPanel.cs" />
@@ -358,6 +364,9 @@
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/98373/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>E:/File/UnityProject/Menstruation/Assets/Plugins/LitJson.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>

@@ -35,6 +35,7 @@ public class UpdateHistoryRequest : BaseRequest {
     public override void OnResponse(string data)
     {
         base.OnResponse(data);
+        Debug.Log(data.Length);
         if (data != "")
         {
             string[] strs = data.Split('$');

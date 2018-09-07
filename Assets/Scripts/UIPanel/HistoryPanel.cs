@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using Assets.Scripts.Model;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -43,11 +45,16 @@ public class HistoryPanel : BasePanel, IBeginDragHandler, IEndDragHandler
     {
         updateHistoryRequest.SendRequest("");
         targetHorizontalPosition = 1;
+        dateText.text = DateTime.Today.Year + "年" + DateTime.Today.Date.Month + "月" + DateTime.Today.Date.Day + "日";
     }
 	// Update is called once per frame
 	void Update ()
 	{
-	    contentText.readOnly = targetHorizontalPosition != 1;
+#if UNITY_EDITOR
+        if(Input.GetKeyDown(KeyCode.Space))
+            SavePhoto(Tools.ReadPNG("E:/5.png"));
+#endif
+        contentText.readOnly = targetHorizontalPosition != 1;
         if (isDraging == false)
             scrollRect.horizontalNormalizedPosition = Mathf.Lerp(scrollRect.horizontalNormalizedPosition,
                 targetHorizontalPosition, Time.deltaTime * smoothing);
@@ -70,7 +77,11 @@ public class HistoryPanel : BasePanel, IBeginDragHandler, IEndDragHandler
         {
             if (histories.Count!=0&&histories.Peek().Date == currentDay)
             {
-                Instantiate(this.historyItem, layout).GetComponent<HistoryItem>().Set(histories.Dequeue(), this);
+                HistoryItem history = Instantiate(this.historyItem, layout).GetComponent<HistoryItem>().Set(histories.Dequeue(), this);
+                if (i == dayCount - 1)
+                {
+                    contentText.text = history.Content;
+                }
             }
             else
             {
@@ -108,11 +119,12 @@ public class HistoryPanel : BasePanel, IBeginDragHandler, IEndDragHandler
         if (historyItem != null)
         {
             contentText.text = historyItem.Content;
+            dateText.text = historyItem.Date;
         }
     }
 
-    public void SavePhoto(string data)
+    public void SavePhoto(byte[] data) 
     {
-        addHistoryPhotoRequest.SendRequest(data);
+        addHistoryPhotoRequest.SendRequest(Tools.PackBytes(data));
     }
 }

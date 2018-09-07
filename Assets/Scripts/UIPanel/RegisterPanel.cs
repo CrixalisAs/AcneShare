@@ -67,7 +67,7 @@ public class RegisterPanel : BasePanel
     }
     void CameraShotComplete(Texture2D img, string path)
     {
-        Sprite sprite = Sprite.Create(img, new Rect(0, 0,400, 400),
+        Sprite sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height),
             new Vector2(0.5f, 0.5f));
         headImage.sprite = sprite;
         headImage.color = Color.white;
@@ -75,7 +75,7 @@ public class RegisterPanel : BasePanel
     }
     void ImagePicked(Texture2D img, string path)
     {
-        Sprite sprite = Sprite.Create(img, new Rect(0, 0, 400, 400),
+        Sprite sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height),
             new Vector2(0.5f, 0.5f));
         headImage.sprite = sprite;
         headImage.color=Color.white;

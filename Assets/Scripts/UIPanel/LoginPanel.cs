@@ -19,7 +19,6 @@ public class LoginPanel : BasePanel
         bg = transform.Find("Bg").gameObject;
         usernameInputField = transform.Find("Bg/UsernameLabel/UsernameInput").GetComponent<InputField>();
         passwordInputField = transform.Find("Bg/PasswordLabel/PasswordInput").GetComponent<InputField>();
-        transform.Find("Bg/QuitButton").GetComponent<Button>().onClick.AddListener(OnQuitClick);
         transform.Find("Bg/LoginButton").GetComponent<Button>().onClick.AddListener(OnLoginClick);
         transform.Find("Bg/RegisterButton").GetComponent<Button>().onClick.AddListener(OnRegisterClick);
     }
@@ -89,10 +88,6 @@ public class LoginPanel : BasePanel
     {
         PlayClickSound();
         uiMng.PushPanel(UIPanelType.Register);
-    }
-    private void OnQuitClick()
-    {
-        Application.Quit();
     }
 
     public override void OnResume()

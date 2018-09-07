@@ -13,8 +13,8 @@ using UnityEngine.Networking;
 public class ClientManager : BaseManager
 {
     public ClientManager(GameFacade facade) : base(facade) { }
-    //private const string IP = "39.108.141.81";
-    private const string IP = "127.0.0.1";
+    private const string IP = "39.108.141.81";
+    //private const string IP = "127.0.0.1";
 
     private const int PORT = 6688;
     private Socket clientSocket;
@@ -59,6 +59,12 @@ public class ClientManager : BaseManager
         facade.HandleResponse(actionCode, data);
     }
     public void SendRequest(RequestCode requestCode, ActionCode actionCode, string data)
+    {
+        byte[] bytes = Message.PackData(requestCode, actionCode, data);
+        clientSocket.Send(bytes);
+        Debug.Log(actionCode + " send");
+    }
+    public void SendRequest(RequestCode requestCode, ActionCode actionCode, byte[] data)
     {
         byte[] bytes = Message.PackData(requestCode, actionCode, data);
         clientSocket.Send(bytes);

@@ -39,6 +39,14 @@
     {
       "PanelTypeString": "History",
       "Path": "UIPanel/HistoryPanel"
+    },
+    {
+      "PanelTypeString": "Knowledge",
+      "Path": "UIPanel/KnowledgePanel"
+    },
+    {
+      "PanelTypeString": "Article",
+      "Path": "UIPanel/ArticlePanel"
     }
   ]
 

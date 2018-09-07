@@ -101,7 +101,10 @@ public class GameFacade : MonoBehaviour
     {
         clientMng.SendRequest(requestCode, actionCode, data);
     }
-
+    public void SendRequest(RequestCode requestCode, ActionCode actionCode, byte[] data)
+    {
+        clientMng.SendRequest(requestCode, actionCode, data);
+    }
     #endregion
 
     #region UI
@@ -139,6 +142,7 @@ public class GameFacade : MonoBehaviour
 
     public static Sprite TransBytesToSprite(byte[] image,int width=400,int height=400)
     {
+        if (image == null) return null;
         Texture2D texture = new Texture2D(width, height);
         texture.LoadImage(image);
         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),

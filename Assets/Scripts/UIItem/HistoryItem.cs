@@ -15,6 +15,7 @@ public class HistoryItem : MonoBehaviour
     private Button selectPhotoButton;
     private Button photographButton;
     private Text date;
+    public string Date { get { return date.text; } }
 	// Use this for initialization
 	void Awake ()
 	{
@@ -24,22 +25,27 @@ public class HistoryItem : MonoBehaviour
         photographButton.onClick.AddListener(Photograph);
         photo = transform.Find("Photo").GetComponent<Image>();
 	    date = transform.Find("Date").GetComponent<Text>();
-	    selectPhotoButton.gameObject.SetActive(false);
+
+        selectPhotoButton.gameObject.SetActive(false);
 	    photographButton.gameObject.SetActive(false);
     }
 
     public HistoryItem Set(History history, HistoryPanel historyPanel)
     {
         HistoryPanel = historyPanel;
-        if (history.Date == DateTime.Today)
+        if (history.Date == DateTime.Today&& history.Photo==null)
         {
             selectPhotoButton.gameObject.SetActive(true);
             photographButton.gameObject.SetActive(true);
             photo.sprite = Resources.Load<Sprite>("Sprites/Add");
         }
-        else if(history.Photo != null)
+        else if (history.Photo != null)
         {
-             photo.sprite = GameFacade.TransBytesToSprite(history.Photo,600,900);
+            photo.sprite = GameFacade.TransBytesToSprite(history.Photo, 600, 900);
+        }
+        else
+        {
+            photo.sprite = historyPanel.NullSprite;
         }
         date.text = history.Date.Year + "年\n" + history.Date.Month + "月" + history.Date.Day + "日";
         id = history.Id;
@@ -60,23 +66,21 @@ public class HistoryItem : MonoBehaviour
     }
     void CameraShotComplete(Texture2D img, string path)
     {
-        Sprite sprite = Sprite.Create(img, new Rect(0, 0, 600, 900),
+        Sprite sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height),
             new Vector2(0.5f, 0.5f));
         photo.sprite = sprite;
         photo.color = Color.white;
-        string imageData = Tools.PackBytes(Tools.ReadPNG(path));
-        HistoryPanel.SavePhoto(imageData);
+        HistoryPanel.SavePhoto(Tools.ReadPNG(path));
         selectPhotoButton.gameObject.SetActive(false);
         photographButton.gameObject.SetActive(false);
     }
     void ImagePicked(Texture2D img, string path)
     {
-        Sprite sprite = Sprite.Create(img, new Rect(0, 0, 600, 900),
+        Sprite sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height),
             new Vector2(0.5f, 0.5f));
         photo.sprite = sprite;
         photo.color = Color.white;
-        string imageData = Tools.PackBytes(Tools.ReadPNG(path));
-        HistoryPanel.SavePhoto(imageData);
+        HistoryPanel.SavePhoto(Tools.ReadPNG(path));
         selectPhotoButton.gameObject.SetActive(false);
         photographButton.gameObject.SetActive(false);
     }
