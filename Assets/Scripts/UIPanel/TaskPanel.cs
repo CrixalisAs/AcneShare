@@ -92,7 +92,7 @@ public class TaskPanel : BasePanel
             switch (task.TaskState)
             {
                 case TaskState.UnConfrimed:
-                    unfinishedCount++;
+                    unConfirmedCount++;
                     break;
                 case TaskState.Finished:
                     finishedCount++;
@@ -134,6 +134,7 @@ public class TaskPanel : BasePanel
         addTaskRequest.SendRequest(content.text);
         addPanel.SetActive(false);
         ClearEdit();
+        Edit();
     }
 
     void ClearEdit()
@@ -143,6 +144,7 @@ public class TaskPanel : BasePanel
     public void Delete(int id)
     {
         deleteTaskRequest.SendRequest(id.ToString());
+        Edit();
     }
     void Edit()
     {

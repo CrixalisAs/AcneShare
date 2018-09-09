@@ -37,8 +37,9 @@ public class KnowledgePanel : BasePanel
 	    hidePosx = -classifyPanel.GetComponent<RectTransform>().rect.width;
 	    targetPosx = hidePosx;
         for (int i = 0; i < Enum.GetNames((new KnowledgeType()).GetType()).Length; i++)
-	    {
-	        classifyPanel.Find("Button" +i).GetComponent<Button>().onClick.AddListener(() => ListKnowledges(knowledges,(KnowledgeType)i));
+        {
+            var i1 = i;
+            classifyPanel.Find("Button" +i).GetComponent<Button>().onClick.AddListener(() => ListKnowledges(knowledges,(KnowledgeType)i1));
         }
 	    transform.Find("SelectPanel/InputField").GetComponent<InputField>().onValueChanged.AddListener(Select);
         transform.Find("ShareButton").GetComponent<Button>().onClick.AddListener(OnShareButtonClick);
@@ -118,7 +119,7 @@ public class KnowledgePanel : BasePanel
             {
                 knowledgeItems.Add(Instantiate(knowledgeItem, layout).GetComponent<KnowledgeItem>().Set(knowledge, this));
             }
-            else
+            else if(type == KnowledgeType.All)
             {
                 knowledgeItems.Add(Instantiate(knowledgeItem, layout).GetComponent<KnowledgeItem>().Set(knowledge, this));
             }

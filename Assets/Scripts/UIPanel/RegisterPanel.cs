@@ -118,17 +118,23 @@ public class RegisterPanel : BasePanel
         {
             msg += "年龄错误";
         }
+#if UNITY_EDITOR
+        registerRequest.SendRequest(usernameIF.text, passwordIF.text, name.text, age.text, sex.isOn, Tools.PackBytes(Tools.ReadPNG("E:/5.png")));
+        return;
+#else
         else if (image == null)
         {
             msg += "您还没有选择头像";
         }
+
+#endif
         if (msg != "")
         {
             uiMng.ShowMessage(msg);
             return;
         }
         
-        registerRequest.SendRequest(usernameIF.text, passwordIF.text,name.text,age.text,sex,Tools.PackBytes(image));
+        registerRequest.SendRequest(usernameIF.text, passwordIF.text,name.text,age.text,sex.isOn,Tools.PackBytes(image));
     }
 
     public void OnRegisterResponse(ReturnCode returnCode)

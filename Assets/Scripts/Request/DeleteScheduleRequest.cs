@@ -38,18 +38,19 @@ public class DeleteScheduleRequest : BaseRequest {
     public override void OnResponse(string data)
     {
         base.OnResponse(data);
-        if (data == "") return;
-        string[] strs = data.Split('$');
-        foreach (string s in strs)
+        if (data != "")
         {
-            string[] str = s.Split('&');
-            int id = int.Parse(str[0]);
-            string time = str[1];
-            byte isNotice = byte.Parse(str[2]);
-            string content = str[3];
-            schedules.Add(new Schedule(id, time, isNotice, content));
+            string[] strs = data.Split('$');
+            foreach (string s in strs)
+            {
+                string[] str = s.Split('&');
+                int id = int.Parse(str[0]);
+                string time = str[1];
+                byte isNotice = byte.Parse(str[2]);
+                string content = str[3];
+                schedules.Add(new Schedule(id, time, isNotice, content));
+            }
         }
-        if (schedules.Count != 0)
-            isUpdate = true;
+        isUpdate = true;
     }
 }

@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Assets.Scripts.Model;
+using HedgehogTeam.EasyTouch;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class HistoryPanel : BasePanel, IBeginDragHandler, IEndDragHandler
+public class HistoryPanel : BasePanel
 {
     private AddHistoryPhotoRequest addHistoryPhotoRequest;
     private AddHistoryContentRequest addHistoryContentRequest;
@@ -25,16 +26,27 @@ public class HistoryPanel : BasePanel, IBeginDragHandler, IEndDragHandler
 
     private Text dateText;
     private InputField contentText;
+
+    private Text loadText;
+
+    private GameObject loadPanel;
+
+    private string originLoadText;
+
+    private float timer = 0;
     // Use this for initialization
     void Awake ()
     {
         updateHistoryRequest = GetComponent<UpdateHistoryRequest>();
         addHistoryContentRequest = GetComponent<AddHistoryContentRequest>();
         addHistoryPhotoRequest = GetComponent<AddHistoryPhotoRequest>();
+        loadPanel = transform.Find("LoadPanel").gameObject;
+        loadText = loadPanel.transform.Find("LoadText").GetComponent<Text>();
+        originLoadText = loadText.text;
         NullSprite = Resources.Load<Sprite>("Sprites/Null");
         layout = transform.Find("ScrollPanel/Layout");
         historyItem = Resources.Load<GameObject>("UIItem/HistoryItem");
-		transform.Find("BackButton").GetComponent<Button>().onClick.AddListener((() => uiMng.PopAndDestroy()));
+		transform.Find("BackButton").GetComponent<Button>().onClick.AddListener((() => uiMng.PopPanel()));
         scrollRect = transform.Find("ScrollPanel").GetComponent<ScrollRect>();
         dateText = transform.Find("DateText").GetComponent<Text>();
         contentText = transform.Find("ContentText").GetComponent<InputField>();
@@ -51,23 +63,38 @@ public class HistoryPanel : BasePanel, IBeginDragHandler, IEndDragHandler
 	void Update ()
 	{
 #if UNITY_EDITOR
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
             SavePhoto(Tools.ReadPNG("E:/5.png"));
 #endif
         contentText.readOnly = targetHorizontalPosition != 1;
         if (isDraging == false)
             scrollRect.horizontalNormalizedPosition = Mathf.Lerp(scrollRect.horizontalNormalizedPosition,
                 targetHorizontalPosition, Time.deltaTime * smoothing);
+	    if (loadPanel.activeSelf)
+	    {
+	        timer += Time.deltaTime;
+
+            if (loadText.text == originLoadText)
+	        {
+	            loadText.text = "加载中";
+	        }
+	        if (timer >= 0.3f)
+	        {
+	            timer = 0;
+	            loadText.text += ".";
+	        }
+	    }
     }
 
     void SaveContent(string content)
     {
         if (targetHorizontalPosition != 1) return;
         addHistoryContentRequest.SendRequest(content);
+        layout.GetChild(layout.childCount - 1).GetComponent<HistoryItem>().Content = content;
     }
     public void ListHistoryItem(Queue<History> histories,DateTime firstDay)
     {
-        DateTime now=DateTime.Today;
+        DateTime now=DateTime.Now;
         DateTime currentDay = firstDay;
         TimeSpan deltaTime = now - firstDay;
         int dayCount = deltaTime.Days + 1;
@@ -75,7 +102,7 @@ public class HistoryPanel : BasePanel, IBeginDragHandler, IEndDragHandler
         float deltaOffset = 1f / (dayCount - 1);
         for (int i = 0; i < dayCount; i++,currentDay+= new TimeSpan(1, 0, 0, 0))
         {
-            if (histories.Count!=0&&histories.Peek().Date == currentDay)
+            if (histories.Count!=0&&histories.Peek().Date.ToString("D") == currentDay.ToString("D"))
             {
                 HistoryItem history = Instantiate(this.historyItem, layout).GetComponent<HistoryItem>().Set(histories.Dequeue(), this);
                 if (i == dayCount - 1)
@@ -93,6 +120,7 @@ public class HistoryPanel : BasePanel, IBeginDragHandler, IEndDragHandler
                 pageArray[i] = 1;
             }
         }
+        Loaded();
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -126,5 +154,24 @@ public class HistoryPanel : BasePanel, IBeginDragHandler, IEndDragHandler
     public void SavePhoto(byte[] data) 
     {
         addHistoryPhotoRequest.SendRequest(Tools.PackBytes(data));
+    }
+
+    public override void OnResume()
+    {
+        base.OnResume();
+
+        updateHistoryRequest.SendRequest("");
+        loadPanel.SetActive(true);
+        targetHorizontalPosition = 1;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    { 
+        isDraging = true;
+    }
+
+    private void Loaded()
+    {
+        loadPanel.SetActive(false);
     }
 }

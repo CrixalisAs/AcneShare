@@ -55,7 +55,7 @@ public class UpdateHistoryRequest : BaseRequest {
         }
         if (dateTime == DateTime.MinValue)
         {
-            dateTime = DateTime.Today;
+            dateTime = DateTime.Now;
         }
         isUpdate = true;
     }

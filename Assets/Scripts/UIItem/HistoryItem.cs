@@ -33,7 +33,7 @@ public class HistoryItem : MonoBehaviour
     public HistoryItem Set(History history, HistoryPanel historyPanel)
     {
         HistoryPanel = historyPanel;
-        if (history.Date == DateTime.Today&& history.Photo==null)
+        if (history.Date.ToString("D") == DateTime.Now.ToString("D") && history.Photo==null)
         {
             selectPhotoButton.gameObject.SetActive(true);
             photographButton.gameObject.SetActive(true);
@@ -49,7 +49,7 @@ public class HistoryItem : MonoBehaviour
         }
         date.text = history.Date.Year + "年\n" + history.Date.Month + "月" + history.Date.Day + "日";
         id = history.Id;
-        Content = history.Content;
+        Content = history.Content!="" ? history.Content : "无";
         return this;
     }
 

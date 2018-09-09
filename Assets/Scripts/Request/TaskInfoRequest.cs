@@ -64,7 +64,7 @@ public class TaskInfoRequest : BaseRequest {
                 switch (state)
                 {
                     case TaskState.UnConfrimed:
-                        unfinishedCount++;
+                        unConfirmedCount++;
                         break;
                     case TaskState.Finished:
                         finishedCount++;

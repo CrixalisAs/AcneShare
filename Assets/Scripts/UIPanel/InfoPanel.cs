@@ -39,9 +39,9 @@ public class InfoPanel : BasePanel
         transform.Find("ShareButton").GetComponent<Button>().onClick.AddListener(OnShareButtonClick);
         transform.Find("KnowledgeButton").GetComponent<Button>().onClick.AddListener(Knowledge);
         amount = calendar.Find("Amount").GetComponent<Text>();
-        calendar.Find("DetailsButton").GetComponent<Button>().onClick.AddListener(Calendar);
-        task.Find("DetailsButton").GetComponent<Button>().onClick.AddListener(Task);
-        transform.Find("History/DetailsButton").GetComponent<Button>().onClick.AddListener(History);
+        calendar.GetComponent<Button>().onClick.AddListener(Calendar);
+        task.GetComponent<Button>().onClick.AddListener(Task);
+        transform.Find("History").GetComponent<Button>().onClick.AddListener(History);
         taskText = transform.Find("Task/TaskText").GetComponent<Text>();
         fillImage = transform.Find("Task/FillImage").GetComponent<Image>();
         score = fillImage.transform.Find("Score").GetComponent<Text>();
