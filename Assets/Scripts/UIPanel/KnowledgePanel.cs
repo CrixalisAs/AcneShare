@@ -78,7 +78,7 @@ public class KnowledgePanel : BasePanel
     }
     void OnShareButtonClick()
     {
-        uiMng.PopAndDestroy();
+        uiMng.PopPanel();
     }
 
     void OnInfoButtonClick()
