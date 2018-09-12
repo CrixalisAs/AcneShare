@@ -1,0 +1,16 @@
+E:\File\program\C#\AcneShare\AcneShare\bin\Debug\AcneShare.exe.config
+E:\File\program\C#\AcneShare\AcneShare\bin\Debug\AcneShare.exe
+E:\File\program\C#\AcneShare\AcneShare\bin\Debug\AcneShare.pdb
+E:\File\program\C#\AcneShare\AcneShare\bin\Debug\Common.dll
+E:\File\program\C#\AcneShare\AcneShare\bin\Debug\MySql.Data.dll
+E:\File\program\C#\AcneShare\AcneShare\bin\Debug\Common.pdb
+E:\File\program\C#\AcneShare\AcneShare\bin\Debug\MySql.Data.xml
+E:\File\program\C#\AcneShare\AcneShare\obj\Debug\AcneShare.csprojAssemblyReference.cache
+E:\File\program\C#\AcneShare\AcneShare\obj\Debug\AcneShare.csproj.CoreCompileInputs.cache
+E:\File\program\C#\AcneShare\AcneShare\obj\Debug\AcneShare.csproj.CopyComplete
+E:\File\program\C#\AcneShare\AcneShare\obj\Debug\AcneShare.exe
+E:\File\program\C#\AcneShare\AcneShare\obj\Debug\AcneShare.pdb
+E:\File\program\C#\AcneShare\AcneShare\bin\Debug\AcneShare.exe.manifest
+E:\File\program\C#\AcneShare\AcneShare\bin\Debug\AcneShare.application
+E:\File\program\C#\AcneShare\AcneShare\obj\Debug\AcneShare.exe.manifest
+E:\File\program\C#\AcneShare\AcneShare\obj\Debug\AcneShare.application
